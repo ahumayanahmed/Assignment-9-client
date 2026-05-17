@@ -10,6 +10,7 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
+import { FcGoogle } from "react-icons/fc";
 // import { authClient } from "@/lib/auth-client";
 // import { redirect } from "next/navigation";
 // import { FcGoogle } from "react-icons/fc";
