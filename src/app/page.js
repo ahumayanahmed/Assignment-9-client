@@ -1,10 +1,10 @@
+import Banner from "@/component/Bannar";
 import Image from "next/image";
 
 export default function Home() {
   return (
     <div>
-
-      humayan
+    <Banner/>
     </div>
   );
 }
