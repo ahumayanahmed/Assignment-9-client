@@ -1,34 +1,13 @@
-"use client";
+
 
 import Image from "next/image";
 
-const bookings = [
-  {
-    id: 1,
-    roomName: "Modern Study Hub",
-    image:
-      "https://images.unsplash.com/photo-1497366811353-6870744d04b2",
-    date: "20 May 2026",
-    start: "10:00 AM",
-    end: "01:00 PM",
-    total: 24,
-    status: "confirmed",
-  },
 
-  {
-    id: 2,
-    roomName: "Silent Reading Space",
-    image:
-      "https://images.unsplash.com/photo-1524758631624-e2822e304c36",
-    date: "24 May 2026",
-    start: "03:00 PM",
-    end: "05:00 PM",
-    total: 10,
-    status: "cancelled",
-  },
-];
+ 
 
-const MyBookingsPage = () => {
+const MyBookingsPage = async() => {
+  const res =  await fetch('http://localhost:8000/booking')
+  const data = await res.json()
   return (
     <section className="max-w-7xl mx-auto px-6 lg:px-10 py-16">
       {/* Heading */}
