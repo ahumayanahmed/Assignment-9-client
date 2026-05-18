@@ -1,4 +1,6 @@
+import BookRoomPage from "@/component/Formsubmit";
 import Image from "next/image";
+import Link from "next/link";
 
 const Detailspage = async ({ params }) => {
   const { id } = await params;
@@ -10,7 +12,7 @@ const Detailspage = async ({ params }) => {
   const data = await res.json();
 
   const room = data.find((r) => r.id.toString() === id);
-
+console.log("hjdsjgd",room)
   if (!room) {
     return (
       <div className="text-center mt-20 text-red-500">
@@ -65,10 +67,12 @@ const Detailspage = async ({ params }) => {
             </span>
           ))}
         </div>
-
-        <button className="btn btn-primary w-full mt-6 rounded-xl">
+          <BookRoomPage room={room}/>
+        {/* <Link href={`/book/${room.id}`} className="btn btn-primary w-full mt-6 rounded-xl">
+        
           Book Now
-        </button>
+        
+        </Link> */}
       </div>
     </div>
   );

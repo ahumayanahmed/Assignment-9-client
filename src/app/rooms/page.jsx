@@ -1,6 +1,4 @@
 import Roomcord from "@/component/Roomcord";
-import Somecords from "@/component/Somecords";
-
 
 const FeaturedRooms = async () => {
 const res = await fetch('http://localhost:3000/data.json')
