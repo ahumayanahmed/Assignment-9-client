@@ -1,7 +1,7 @@
 import Roomcord from "@/component/Roomcord";
 
 const FeaturedRooms = async () => {
-const res = await fetch('http://localhost:8000/booking')
+const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking`)
 const Roomdata = await res.json()
  console.log("data",Roomdata)
   return (
@@ -21,7 +21,7 @@ const Roomdata = await res.json()
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
         {Roomdata?.map((room) => (
          
-    <Roomcord key={room.id} room={room} />
+    <Roomcord key={room._id} room={room} />
   
  
         ))}

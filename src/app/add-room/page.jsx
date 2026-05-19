@@ -1,7 +1,6 @@
 "use client";
-
-import { useState } from "react";
-// import { AuthContext } from "@/providers/AuthProvider";
+import { AuthContext } from "@/providers/AuthProvider";
+import { useContext, useState } from "react";
 const amenitiesList = [
   "Whiteboard",
   "Projector",
@@ -12,7 +11,7 @@ const amenitiesList = [
 ];
 
 const AddRoomPage = () => {
-    //  const { user } = useContext(AuthContext);
+      const { user } = useContext(AuthContext);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
 
   const handleAmenities = (value) => {
@@ -28,28 +27,51 @@ const AddRoomPage = () => {
     }
   };
 
-  const handleAddRoom = (e) => {
-    e.preventDefault();
+ const handleAddRoom = async (e) => {
+  e.preventDefault();
 
-    const form = e.target;
+  const form = e.target;
 
-    const roomData = {
-      name: form.name.value,
-      image: form.image.value,
-      floor: form.floor.value,
-      capacity: form.capacity.value,
-      hourlyRate: form.hourlyRate.value,
-      description: form.description.value,
-      amenities: selectedAmenities,
-      ownerEmail: user?.email,
-      ownerName: user?.displayName,
-      ownerPhoto: user?.photoURL,
-    };
+  const roomData = {
+    name: form.name.value,
+    image: form.image.value,
+    floor: form.floor.value,
+    capacity: form.capacity.value,
+    hourlyRate: form.hourlyRate.value,
+    description: form.description.value,
+    amenities: selectedAmenities,
 
-    console.log(roomData);
-
-    // database post request
+    ownerEmail: user?.email,
+    ownerName: user?.displayName,
+    ownerPhoto: user?.photoURL,
   };
+
+  console.log(roomData);
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/booking`,
+    {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(roomData),
+    }
+  );
+
+  const data = await res.json();
+
+  console.log(data);
+
+  if (data.insertedId) {
+    alert("Room Added Successfully");
+
+    form.reset();
+
+    setSelectedAmenities([]);
+  }
+};
 
   return (
     <section className="min-h-screen bg-[#F8FAFC] py-16 px-6">
