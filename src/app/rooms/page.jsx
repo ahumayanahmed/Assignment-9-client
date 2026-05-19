@@ -1,30 +1,57 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Roomcord from "@/component/Roomcord";
+import RoomFilterBar from "@/component/RoomFilterBar";
 
-const FeaturedRooms = async () => {
-const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking`)
-const Roomdata = await res.json()
- console.log("data",Roomdata)
+const FeaturedRooms = () => {
+  const [rooms, setRooms] = useState([]);
+  const [filters, setFilters] = useState({});
+
+  // FETCH ROOMS
+  useEffect(() => {
+    const fetchRooms = async () => {
+      const query = new URLSearchParams(filters).toString();
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/booking?${query}`
+      );
+
+      const data = await res.json();
+
+      setRooms(data);
+    };
+
+    fetchRooms();
+  }, [filters]);
+
+  // UNIQUE AMENITIES
+  const amenities = [
+    ...new Set(rooms.flatMap((room) => room.amenities || [])),
+  ];
+
+  // UNIQUE FLOORS
+  const floors = [...new Set(rooms.map((room) => room.floor))];
+
   return (
-     <section className="max-w-7xl mx-auto px-6 lg:px-10 py-20">
-      {/* Header */}
-      <div className="text-center">
-        <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A]">
-          Available Study Rooms
-        </h2>
+    <section className="max-w-7xl mx-auto px-6 lg:px-10 py-20">
 
-        <p className="mt-5 text-gray-500 max-w-2xl mx-auto leading-7">
-          Find quiet and affordable study rooms for focused learning, group discussions, and productive work sessions.
-        </p>
-      </div>
+      <RoomFilterBar
+        onFilter={setFilters}
+        amenities={amenities}
+        floors={floors}
+      />
 
-      {/* Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
-        {Roomdata?.map((room) => (
-         
-    <Roomcord key={room._id} room={room} />
-  
- 
-        ))}
+
+        {rooms?.length > 0 ? (
+          rooms.map((room) => (
+            <Roomcord key={room._id} room={room} />
+          ))
+        ) : (
+          <p>No rooms found</p>
+        )}
+
       </div>
     </section>
   );
