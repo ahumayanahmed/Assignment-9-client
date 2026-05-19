@@ -68,10 +68,10 @@ export function EditModal({ room }) {
       amenities: selectedAmenities,
     };
 
-    console.log(updatedRoom);
+    
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/rooms/${_id}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${room._id}`,
       {
         method: "PATCH",
         headers: {

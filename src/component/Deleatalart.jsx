@@ -9,7 +9,7 @@ export function DeleteAlert({room}) {
   const { _id, destinationName } = room;
 
   const handleDelete = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${_id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${room._id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -18,7 +18,7 @@ export function DeleteAlert({room}) {
     });
 
     const data = await res.json();
-    redirect('/destinations')
+    redirect('/')
     console.log(data);
   };
   return (

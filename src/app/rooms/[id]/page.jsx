@@ -5,7 +5,7 @@ import Link from "next/link";
 const Detailspage = async ({ params }) => {
   const { id } = await params;
 
-  const res = await fetch("http://localhost:3000/data.json", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking`, {
     cache: "no-store",
   });
 
