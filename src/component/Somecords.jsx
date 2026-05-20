@@ -1,8 +1,17 @@
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
 const Somecords = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking`);
+  // const {token} = await auth.api.getToken({
+  // headers : await headers()
+  // })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking`,{
+//  headers : {
+//       authorization :`Bearer ${token}`
+//     }
+  });
   const Topdata = await res.json();
 
   const data = Topdata.slice(0, 4);

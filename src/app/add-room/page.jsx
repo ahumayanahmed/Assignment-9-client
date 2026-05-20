@@ -1,4 +1,5 @@
 "use client";
+ import { authClient } from "@/lib/auth-client";
 import { AuthContext } from "@/providers/AuthProvider";
 import { useContext, useState } from "react";
 const amenitiesList = [
@@ -47,13 +48,15 @@ const AddRoomPage = () => {
   };
 
   console.log(roomData);
-
+ const {data:tokenData}= await authClient.token()
+ 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/booking`,
     {
       method: "POST",
       headers: {
         "content-type": "application/json",
+         authorization :`Bearer ${tokenData.token}`
       },
       credentials: "include",
       body: JSON.stringify(roomData),
@@ -65,12 +68,19 @@ const AddRoomPage = () => {
   console.log(data);
 
   if (data.insertedId) {
-    alert("Room Added Successfully");
+  toast.success("Room added successfully");
 
-    form.reset();
+  form.reset();
 
-    setSelectedAmenities([]);
-  }
+  setSelectedAmenities([]);
+
+  setTimeout(() => {
+    window.location.href = "/";
+  }, 1500);
+
+} else {
+  toast.error("Failed to add room");
+}
 };
 
   return (

@@ -1,6 +1,7 @@
 "use client";
-
+import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const BookRoomPage = ({ room }) => {
   const [open, setOpen] = useState(false);
@@ -28,13 +29,16 @@ const BookRoomPage = ({ room }) => {
       status: "confirmed",
       createdAt: new Date(),
     };
-
+const {data:tokenData}= await authClient.token()
+console.log("token client",tokenData)
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json",
+            authorization :`Bearer ${tokenData.token}`
+           },
           body: JSON.stringify(bookingData),
         }
       );
@@ -42,15 +46,21 @@ const BookRoomPage = ({ room }) => {
       const data = await res.json();
 
       if (data.success) {
-        alert("Booking Saved Successfully!");
-        setOpen(false);
-      } else {
-        alert("Failed to book");
-      }
-    } catch (error) {
-      console.error(error);
-      alert("Server Error");
-    }
+  toast.success("Booking saved successfully!");
+
+  setTimeout(() => {
+    setOpen(false);
+    window.location.href = "/";
+  }, 1500);
+
+} else {
+  toast.error("Failed to book");
+}
+
+} catch (error) {
+  console.error(error);
+  toast.error("Server Error");
+}
   };
 
   return (

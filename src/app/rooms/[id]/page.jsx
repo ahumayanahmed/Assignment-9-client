@@ -1,18 +1,29 @@
 import BookRoomPage from "@/component/Formsubmit";
+// import { auth } from "@/lib/auth";
+// import { headers } from "next/headers";
 import Image from "next/image";
-import Link from "next/link";
+
 
 const Detailspage = async ({ params }) => {
   const { id } = await params;
-
+  console.log("humayan",params)
+// const {token} = await auth.api.getToken({
+//   headers : await headers()
+// })
+// console.log(token)
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking`, {
-    cache: "no-store",
+    // headers : {
+    //   authorization :`Bearer ${token}`
+    // }
+    
   });
 
   const data = await res.json();
 
-  const room = data.find((r) => r.id.toString() === id);
-console.log("hjdsjgd",room)
+  const room = data.find(
+  (r) => r?._id?.toString() === id
+);
+
   if (!room) {
     return (
       <div className="text-center mt-20 text-red-500">

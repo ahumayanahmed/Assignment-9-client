@@ -13,6 +13,8 @@ import {
 
 import { BiEdit } from "react-icons/bi";
 import { useState } from "react";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 const amenitiesList = [
   "Whiteboard",
@@ -67,7 +69,8 @@ export function EditModal({ room }) {
       description: form.description.value,
       amenities: selectedAmenities,
     };
-
+ const { data: tokenData } =
+          await authClient.token();
     
 
     const res = await fetch(
@@ -76,6 +79,7 @@ export function EditModal({ room }) {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
+          authorization: `Bearer ${tokenData.token}`,
         },
         credentials: "include",
         body: JSON.stringify(updatedRoom),
@@ -84,7 +88,22 @@ export function EditModal({ room }) {
 
     const data = await res.json();
 
-    console.log(data);
+    try {
+  if (data.success) {
+    toast.success("Room Edit successfully");
+
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 1500);
+
+  } else {
+    toast.error("Edit failed");
+  }
+
+} catch (error) {
+  console.error(error);
+  toast.error("Server error");
+}
   };
 
   return (

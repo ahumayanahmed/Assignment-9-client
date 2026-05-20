@@ -1,25 +1,45 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { TrashBin } from "@gravity-ui/icons";
 import { AlertDialog, Button } from "@heroui/react";
 import { redirect } from "next/navigation";
+import { toast } from "react-toastify";
 
 export function DeleteAlert({room}) {
     console.log("listing",room)
   const { _id, destinationName } = room;
 
   const handleDelete = async () => {
+
+     const { data: tokenData } =
+          await authClient.token();
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${room._id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer ${tokenData.token}`,
       },
       credentials: "include"
     });
 
     const data = await res.json();
-    redirect('/')
-    console.log(data);
+   try {
+  if (data.success) {
+    toast.success("Room deleted successfully");
+
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 1500);
+
+  } else {
+    toast.error("Delete failed");
+  }
+
+} catch (error) {
+  console.error(error);
+  toast.error("Server error");
+}
   };
   return (
     <AlertDialog>

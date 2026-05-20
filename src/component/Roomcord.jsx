@@ -65,7 +65,7 @@ const Roomcord = ({room}) => {
 
         {/* Button */}
         <Link
-          href={`/rooms/${room.id}`}
+          href={`/rooms/${room._id}`}
           className="btn btn-primary w-full rounded-xl mt-7"
         >
           View Details

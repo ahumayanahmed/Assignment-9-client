@@ -2,9 +2,18 @@ import { BookingCancelAlert } from "@/component/BookingCancelAlert";
 import Image from "next/image";
 
 const MyBookingsPage = async () => {
+
+  // const {token} = await auth.api.getToken({
+  // headers : await headers()
+  // })
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings`,
-    { cache: "no-store" }
+//     { 
+
+// headers: {
+//               authorization: `Bearer ${tokenData.token}`,
+//             },
+//      }
   );
 
   const data = await res.json();

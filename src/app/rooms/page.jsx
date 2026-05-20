@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import Roomcord from "@/component/Roomcord";
 import RoomFilterBar from "@/component/RoomFilterBar";
+// import { authClient } from "@/lib/auth-client";
+
 
 const FeaturedRooms = () => {
   const [rooms, setRooms] = useState([]);
@@ -11,10 +13,17 @@ const FeaturedRooms = () => {
   // FETCH ROOMS
   useEffect(() => {
     const fetchRooms = async () => {
+      //  const { data: tokenData } =
+      //     await authClient.token();
       const query = new URLSearchParams(filters).toString();
 
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/booking?${query}`
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/booking?${query}`,{
+          //  headers: {
+          //     authorization: `Bearer ${tokenData.token}`
+          //   },
+        }
+    
       );
 
       const data = await res.json();

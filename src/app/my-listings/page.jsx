@@ -8,6 +8,7 @@ import { EditModal } from "@/component/EditModal";
 import { AuthContext } from "@/providers/AuthProvider";
 
 import Image from "next/image";
+import { authClient } from "@/lib/auth-client";
 
 const MyListingsPage = () => {
 
@@ -21,9 +22,15 @@ const MyListingsPage = () => {
 
       const fetchRooms = async () => {
 
+        //  const { data: tokenData } =
+        //   await authClient.token();
+
         const res = await fetch(
-          `http://localhost:8000/booking/${user.email}`,
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${user.email}`,
           {
+            // headers: {
+            //   authorization: `Bearer ${tokenData?.token}`,
+            // },
             credentials: "include",
           }
         );

@@ -13,6 +13,7 @@ import {
 } from "@heroui/react";
 
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const [form, setForm] = useState({
@@ -29,11 +30,17 @@ const LoginPage = () => {
     });
 
     if (data) {
+    toast.success("Login successful");
+
+    setTimeout(() => {
       window.location.href = "/";
-    } else {
-      alert(error?.message || "Login failed");
-    }
-  };
+    }, 1000);
+
+  } else {
+    toast.error(error?.message || "Login failed");
+  }
+};
+  
 
   const handleGoogleSignin = async () => {
     await authClient.signIn.social({

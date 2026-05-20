@@ -34,10 +34,15 @@ const SignUpPage = () => {
     });
 
     if (data) {
+    toast.success("Account created successfully");
+
+    setTimeout(() => {
       window.location.href = "/";
-    } else {
-      alert(error?.message || "Signup failed");
-    }
+    }, 1000);
+
+  } else {
+    toast.error(error?.message || "Signup failed");
+  }
   };
 
   const handleGoogleSignin = async () => {
