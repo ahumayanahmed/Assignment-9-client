@@ -2,6 +2,7 @@
  import { authClient } from "@/lib/auth-client";
 import { AuthContext } from "@/providers/AuthProvider";
 import { useContext, useState } from "react";
+import { toast } from "react-toastify";
 const amenitiesList = [
   "Whiteboard",
   "Projector",
