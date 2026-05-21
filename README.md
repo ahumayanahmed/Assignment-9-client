@@ -1,38 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📚 StudyNook – Library Study Room Booking
 
-## Getting Started
+Live Site: https://assignment-9-client-eosin.vercel.app/
+Live Link: https://assignment-9-client-eosin.vercel.app/
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📖 About the Project
+StudyNook is a modern web application for booking study rooms in libraries. Users can easily browse available rooms, check details, and book them for focused study sessions.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🚀 Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 🔐 Secure user authentication system (login & registration)
+- 🏫 Browse and explore available study rooms with details
+- 📅 Easy room booking system with real-time availability
+- 👤 User dashboard to manage bookings and listings
+- 📱 Fully responsive design for mobile, tablet, and desktop
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Next.js (Frontend Framework)
+- Node.js & Express (Backend API)
+- MongoDB (Database)
+- JWT Authentication
+- Tailwind CSS / DaisyUI
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🔒 Environment Variables
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Create a `.env` file in both client and server:
+# Server Config
+PORT=8000
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-"# Assignment-9-client" 
-"# Assignment-9-client" 
+# Database
+MONGODB_URL
+
+# Auth (Better Auth)
+BETTER_AUTH_SECRET
+BETTER_AUTH_URL
+
+# Frontend URL (API base)
+NEXT_PUBLIC_SERVER_URL
+
+# Google OAuth
+GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET
