@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
-import { Avatar, Button } from "@heroui/react";
+import { Avatar } from "@heroui/react";
 
 const Navbar = () => {
   const { data: session } = authClient.useSession();
@@ -13,7 +13,7 @@ const Navbar = () => {
     window.location.href = "/";
   };
 
-  // PUBLIC + PRIVATE LINKS
+  // NAV LINKS
   const navLinks = (
     <>
       <li>
@@ -54,7 +54,7 @@ const Navbar = () => {
           <div
             tabIndex={0}
             role="button"
-            className="btn btn-ghost btn-circle"
+            className="btn btn-ghost btn-circle text-xl"
           >
             ☰
           </div>
@@ -65,16 +65,9 @@ const Navbar = () => {
           >
             {navLinks}
 
-            <div className="border-t pt-3 mt-3">
-              {user ? (
-                <Button
-                  size="sm"
-                  onClick={handleSignOut}
-                  className="w-full rounded-none bg-red-500 text-white"
-                >
-                  Logout
-                </Button>
-              ) : (
+            {/* LOGIN / REGISTER ONLY */}
+            {!user && (
+              <div className="border-t pt-3 mt-3">
                 <div className="flex flex-col gap-2">
                   <Link
                     href="/login"
@@ -90,8 +83,8 @@ const Navbar = () => {
                     Register
                   </Link>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </ul>
         </div>
 
@@ -148,7 +141,7 @@ const Navbar = () => {
                 {user.name}
               </li>
 
-              
+             
 
               <li className="mt-2">
                 <button
