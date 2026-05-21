@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div>
     <Banner/>
-    <Somecords/>
+    {/* <Somecords/> */}
     <Staticsection/>
     </div>
   );

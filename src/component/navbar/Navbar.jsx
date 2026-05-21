@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { Avatar, Button } from "@heroui/react";
@@ -14,6 +13,7 @@ const Navbar = () => {
     window.location.href = "/";
   };
 
+  // PUBLIC + PRIVATE LINKS
   const navLinks = (
     <>
       <li>
@@ -24,17 +24,22 @@ const Navbar = () => {
         <Link href="/rooms">Rooms</Link>
       </li>
 
-      <li>
-        <Link href="/add-room">Add Room</Link>
-      </li>
+      {/* PRIVATE LINKS */}
+      {user && (
+        <>
+          <li>
+            <Link href="/add-room">Add Room</Link>
+          </li>
 
-      <li>
-        <Link href="/my-listings">My Listings</Link>
-      </li>
+          <li>
+            <Link href="/my-listings">My Listings</Link>
+          </li>
 
-      <li>
-        <Link href="/my-bookings">My Bookings</Link>
-      </li>
+          <li>
+            <Link href="/my-bookings">My Bookings</Link>
+          </li>
+        </>
+      )}
     </>
   );
 
@@ -56,11 +61,11 @@ const Navbar = () => {
 
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-3 shadow bg-base-100 rounded-box w-56 space-y-1"
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-3 shadow bg-base-100 rounded-box w-60 space-y-1"
           >
             {navLinks}
 
-            <div className="border-t pt-2 mt-2">
+            <div className="border-t pt-3 mt-3">
               {user ? (
                 <Button
                   size="sm"
@@ -82,7 +87,7 @@ const Navbar = () => {
                     href="/register"
                     className="btn btn-primary btn-sm"
                   >
-                    Sign Up
+                    Register
                   </Link>
                 </div>
               )}
@@ -92,21 +97,13 @@ const Navbar = () => {
 
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-2">
-          {/* <Image
-            src="/assets/Wanderlast.png"
-            height={45}
-            width={45}
-            alt="logo"
-            className="w-10 h-10 sm:w-12 sm:h-12"
-          /> */}
-
-          <h2 className="text-lg sm:text-2xl font-bold text-primary">
+          <h2 className="text-xl sm:text-2xl font-bold text-primary">
             StudyNook
           </h2>
         </Link>
       </div>
 
-      {/* CENTER MENU */}
+      {/* CENTER */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 gap-2 font-medium">
           {navLinks}
@@ -114,42 +111,85 @@ const Navbar = () => {
       </div>
 
       {/* RIGHT */}
-      <div className="navbar-end gap-2 sm:gap-3">
+      <div className="navbar-end gap-2">
 
         {user ? (
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="dropdown dropdown-end">
 
-            <div className="hidden sm:block text-sm font-medium">
-              {user.name}
+            {/* PROFILE BUTTON */}
+            <div
+              tabIndex={0}
+              role="button"
+              className="flex items-center gap-2 cursor-pointer"
+            >
+
+              <div className="hidden sm:block text-sm font-medium">
+                {user.name}
+              </div>
+
+              <Avatar>
+                <Avatar.Image
+                  referrerPolicy="no-referrer"
+                  src={user.image}
+                />
+
+                <Avatar.Fallback>
+                  {user.name?.charAt(0)}
+                </Avatar.Fallback>
+              </Avatar>
             </div>
 
-            <Avatar>
-              <Avatar.Image
-                referrerPolicy="no-referrer"
-                src={user.image}
-              />
-
-              <Avatar.Fallback>
-                {user.name?.charAt(0)}
-              </Avatar.Fallback>
-            </Avatar>
-
-            <Button
-              size="sm"
-              onClick={handleSignOut}
-              className="hidden sm:flex rounded-none bg-red-500 text-white"
+            {/* DROPDOWN */}
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-3 shadow bg-base-100 rounded-box w-56"
             >
-              Logout
-            </Button>
+              <li className="font-semibold border-b pb-2 mb-2">
+                {user.name}
+              </li>
+
+              <li>
+                <Link href="/add-room">
+                  Add Room
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/my-listings">
+                  My Listings
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/my-bookings">
+                  My Bookings
+                </Link>
+              </li>
+
+              <li className="mt-2">
+                <button
+                  onClick={handleSignOut}
+                  className="text-red-500"
+                >
+                  Logout
+                </button>
+              </li>
+            </ul>
           </div>
         ) : (
           <div className="hidden sm:flex gap-2">
-            <Link href="/login" className="btn btn-outline btn-primary btn-sm">
+            <Link
+              href="/login"
+              className="btn btn-outline btn-primary btn-sm"
+            >
               Login
             </Link>
 
-            <Link href="/register" className="btn btn-primary btn-sm">
-              Sign Up
+            <Link
+              href="/register"
+              className="btn btn-primary btn-sm"
+            >
+              Register
             </Link>
           </div>
         )}
