@@ -148,23 +148,7 @@ const Navbar = () => {
                 {user.name}
               </li>
 
-              <li>
-                <Link href="/add-room">
-                  Add Room
-                </Link>
-              </li>
-
-              <li>
-                <Link href="/my-listings">
-                  My Listings
-                </Link>
-              </li>
-
-              <li>
-                <Link href="/my-bookings">
-                  My Bookings
-                </Link>
-              </li>
+              
 
               <li className="mt-2">
                 <button
