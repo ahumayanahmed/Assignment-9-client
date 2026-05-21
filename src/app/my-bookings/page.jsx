@@ -106,9 +106,7 @@ const bookings = Array.isArray(data) ? data : [];
               <div className="mt-10">
                 {booking.status === "confirmed" ? (
                    <BookingCancelAlert booking={booking}/>
-                  // <button className="bg-red-500 text-white px-8 py-2 rounded-xl">
-                   
-                  // </button>
+                  
                 ) : (
                   <button disabled className="px-8 py-2 rounded-xl bg-gray-200">
                     Cancelled
