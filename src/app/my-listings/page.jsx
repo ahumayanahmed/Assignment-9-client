@@ -21,7 +21,7 @@ const MyListingsPage = () => {
   useEffect(() => {
 
     if (user?.email) {
- console.log("Logged in user email:", user.email);
+ 
       const fetchRooms = async () => {
 
         const { data: tokenData } =

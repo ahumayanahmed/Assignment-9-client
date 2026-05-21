@@ -14,7 +14,7 @@ const amenitiesList = [
 const AddRoomPage = () => {
      const { data: session } = authClient.useSession();
   const user = session?.user;
-  console.log("Addroom in user email:", user.email);
+
   const [selectedAmenities, setSelectedAmenities] = useState([]);
 
   const handleAmenities = (value) => {
