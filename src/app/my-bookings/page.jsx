@@ -1,24 +1,26 @@
 import { BookingCancelAlert } from "@/component/BookingCancelAlert";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Image from "next/image";
 
 const MyBookingsPage = async () => {
 
-  // const {token} = await auth.api.getToken({
-  // headers : await headers()
-  // })
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings`,
-//     { 
+ const {token} = await auth.api.getToken({
+  headers : await headers()
+ })
+const res = await fetch(
+  `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings`,
+  {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  }
+);
 
-// headers: {
-//               authorization: `Bearer ${tokenData.token}`,
-//             },
-//      }
-  );
+const data = await res.json();
 
-  const data = await res.json();
-
-  const bookings = data?.bookings || data || [];
+const bookings = Array.isArray(data) ? data : [];
+  
 
   return (
     <section className="max-w-7xl mx-auto px-6 lg:px-10 py-16">

@@ -14,6 +14,7 @@ import {
 } from "@heroui/react";
 
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 const SignUpPage = () => {
   const [form, setForm] = useState({

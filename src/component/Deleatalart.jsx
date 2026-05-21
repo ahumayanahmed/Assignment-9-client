@@ -18,7 +18,7 @@ export function DeleteAlert({room}) {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
-        authorization: `Bearer ${tokenData.token}`,
+        authorization: `Bearer ${tokenData?.token}`,
       },
       credentials: "include"
     });

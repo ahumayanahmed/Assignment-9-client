@@ -1,43 +1,43 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 
 import { DeleteAlert } from "@/component/Deleatalart";
 import { EditModal } from "@/component/EditModal";
 
-import { AuthContext } from "@/providers/AuthProvider";
+
 
 import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
 
 const MyListingsPage = () => {
 
-  const { user } = useContext(AuthContext);
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+
 
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
 
     if (user?.email) {
-
+ console.log("Logged in user email:", user.email);
       const fetchRooms = async () => {
 
-        //  const { data: tokenData } =
-        //   await authClient.token();
+        const { data: tokenData } =
+  await authClient.token();
 
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${user.email}`,
-          {
-            // headers: {
-            //   authorization: `Bearer ${tokenData?.token}`,
-            // },
-            credentials: "include",
-          }
-        );
+const res = await fetch(
+  `${process.env.NEXT_PUBLIC_SERVER_URL}/booking/my/${user.email}`,
+  {
+    headers: {
+      authorization: `Bearer ${tokenData?.token}`,
+    },
+  }
+);
 
-        const data = await res.json();
-
-        setRooms(data);
+       const data = await res.json();
+setRooms(Array.isArray(data) ? data : []);
       };
 
       fetchRooms();

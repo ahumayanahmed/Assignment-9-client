@@ -79,7 +79,7 @@ export function EditModal({ room }) {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
-          authorization: `Bearer ${tokenData.token}`,
+          authorization: `Bearer ${tokenData?.token}`,
         },
         credentials: "include",
         body: JSON.stringify(updatedRoom),

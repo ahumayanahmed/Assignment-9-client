@@ -1,7 +1,6 @@
 "use client";
  import { authClient } from "@/lib/auth-client";
-import { AuthContext } from "@/providers/AuthProvider";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 const amenitiesList = [
   "Whiteboard",
@@ -13,7 +12,9 @@ const amenitiesList = [
 ];
 
 const AddRoomPage = () => {
-      const { user } = useContext(AuthContext);
+     const { data: session } = authClient.useSession();
+  const user = session?.user;
+  console.log("Addroom in user email:", user.email);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
 
   const handleAmenities = (value) => {
@@ -48,7 +49,7 @@ const AddRoomPage = () => {
     ownerPhoto: user?.photoURL,
   };
 
-  console.log(roomData);
+  
  const {data:tokenData}= await authClient.token()
  
   const res = await fetch(
@@ -57,7 +58,7 @@ const AddRoomPage = () => {
       method: "POST",
       headers: {
         "content-type": "application/json",
-         authorization :`Bearer ${tokenData.token}`
+         authorization :`Bearer ${tokenData?.token}`
       },
       credentials: "include",
       body: JSON.stringify(roomData),
